@@ -1,0 +1,77 @@
+	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>com.fluig</groupId>
+		<artifactId>alert-creator-sample</artifactId>
+		<relativePath>../pom.xml</relativePath>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>alert-creator-sample-server</artifactId>
+	<groupId>com.fluig</groupId>
+	<version>1.0.0-SNAPSHOT</version>	
+	<packaging>ear</packaging>
+
+	<name>Alert Creator Sample - Server</name>
+	<description>Alert Creator Sample - Server</description>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.fluig</groupId>
+			<artifactId>alert-creator-sample-impl</artifactId>
+			<type>ejb</type>
+			<version>${project.version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>com.fluig</groupId>
+			<artifactId>alert-creator-sample-web</artifactId>
+			<type>war</type>
+			<version>${project.version}</version>
+		</dependency>	
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<security>
+						<security-role>
+							<role-name>totvstech</role-name>
+						</security-role>
+						<security-role>
+							<role-name>user</role-name>
+						</security-role>
+						<security-role>
+							<role-name>sysadmin</role-name>
+						</security-role>
+						<security-role>
+							<role-name>totvstech</role-name>
+						</security-role>
+					</security>
+					<version>6</version>
+					<applicationName>alertcreatorsample</applicationName>
+					<generateModuleId>false</generateModuleId>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<initializeInOrder>true</initializeInOrder>
+					<modules>
+						<ejbModule>
+							<groupId>com.fluig</groupId>
+							<artifactId>alert-creator-sample-impl</artifactId>
+							<bundleFileName>alert-creator-sample-impl.jar</bundleFileName>
+						</ejbModule>
+						<webModule>
+							<groupId>com.fluig</groupId>
+							<artifactId>alert-creator-sample-web</artifactId>
+							<bundleFileName>holeritweb.war</bundleFileName>
+							<contextRoot>/holeritweb</contextRoot>
+						</webModule>														
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+		<finalName>${project.artifactId}</finalName>
+	</build>
+</project>
